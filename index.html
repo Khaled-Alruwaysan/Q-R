@@ -541,10 +541,10 @@ select option { background: var(--surface); color: var(--text-main); }
         
         <!-- التقييم العام + إضافة عضو -->
         <div class="member-actions" style="margin-top:18px; display:flex; gap:12px; align-items:center;">
-          <select name="members_general_eval" style="flex:1; padding:12px 14px; border-radius:12px; background:var(--input-bg); border:1px solid var(--border-color); color:var(--text-main); outline:none; font-family:inherit; font-size:14.5px;">
+         select name="members_general_eval" style="flex:1; padding:12px 14px; border-radius:12px; background:var(--input-bg); border:1px solid var(--border-color); color:var(--text-main); outline:none; font-family:inherit; font-size:14.5px;">
             <option value="">— تقييم عام للجنة (اختياري) —</option>
-            <option value="اجادة اللجنه كل الشغل عدا المقيمين">⭐ اجادة اللجنه كل الشغل عدا المقيمين...</option>
-            <option value="لم تجّد اللجنه ككل الشغل عدا المقيمين">⚠️لم تجّد اللجنه ككل الشغل عدا المقيمين ...</option>
+            <option value="أدّت اللجنة ككل مهامها بشكل جيد، باستثناء المقيمين.">⭐ أدّت اللجنة ككل مهامها بشكل جيد، باستثناء المقيمين....</option>
+            <option value=" لم تؤدِّ اللجنة ككل مهامها بالشكل المطلوب، باستثناء المقيمين.">⚠️ لم تؤدِّ اللجنة ككل مهامها بالشكل المطلوب، باستثناء المقيمين. ...</option>
             <option value="أداء متفاوت">📊 أداء متفاوت (تقييم فردي لكل عضو)</option>
           </select>
           <button type="button" class="btn btn-ghost" id="addMemberBtn">＋ إضافة عضو</button>
