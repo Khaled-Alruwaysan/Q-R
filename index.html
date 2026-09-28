@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
-/* ============ المتغيرات للألوان (النمط الفاتح الافتراضي) ============ */
+/* ============ المتغيرات (النمط الفاتح واللّيلي) ============ */
 :root {
   --bg-color: #f8fafc;
   --surface: #ffffff;
@@ -28,7 +28,6 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
 }
 
-/* ============ المتغيرات للألوان (النمط الليلي المريح) ============ */
 [data-theme="dark"] {
   --bg-color: #0b1120;
   --surface: #1e293b;
@@ -96,7 +95,6 @@ body {
 .topbar-text span { font-size: 12px; color: var(--text-muted); font-weight: 500; }
 .topbar-controls { display: flex; align-items: center; gap: 10px; }
 
-/* زر التبديل بين النهاري والليلي */
 .theme-toggle {
   width: 40px; height: 40px; border-radius: 10px;
   background: var(--input-bg); border: 1px solid var(--border-color);
@@ -113,11 +111,12 @@ body {
 
 .wrap { max-width: 940px; margin: 0 auto; position: relative; }
 
-/* ============ شاشة الدخول ============ */
+/* ============ شاشات العرض ============ */
 .screen { display: none; }
 .screen.active { display: block; animation: fadeUp .35s ease-out; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
+/* ============ شاشة الدخول ============ */
 .login-card {
   max-width: 480px; margin: 8vh auto 0;
   background: var(--surface);
@@ -239,7 +238,7 @@ select option { background: var(--surface); color: var(--text-main); }
 .card-head .sub { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-top: 3px; }
 .question { font-size: 14.5px; color: var(--text-main); margin-bottom: 18px; line-height: 1.9; font-weight: 500; }
 
-/* مقياس 1-10 */
+/* مقياس 1-10 (تدرج الألوان) */
 .scale { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
 .chip input { display: none; }
 .chip span {
@@ -247,11 +246,21 @@ select option { background: var(--surface); color: var(--text-main); }
   background: var(--input-bg); border: 1px solid var(--border-color);
   color: var(--text-muted); font-weight: 700; font-size: 14.5px; cursor: pointer; transition: all .2s;
 }
-.chip span:hover { border-color: var(--primary); color: var(--primary); }
-.chip input:checked + span {
-  background: var(--primary); color: #ffffff; border-color: var(--primary);
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3); transform: translateY(-2px);
-}
+.chip span:hover { border-color: var(--text-light); }
+
+/* تدرجات الأحمر إلى الأخضر */
+.chip input[value="1"]:checked + span { background: #991b1b; color: #ffffff; border-color: #991b1b; box-shadow: 0 4px 10px rgba(153, 27, 27, 0.3); transform: translateY(-2px); }
+.chip input[value="2"]:checked + span { background: #b91c1c; color: #ffffff; border-color: #b91c1c; box-shadow: 0 4px 10px rgba(185, 28, 28, 0.3); transform: translateY(-2px); }
+.chip input[value="3"]:checked + span { background: #dc2626; color: #ffffff; border-color: #dc2626; box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3); transform: translateY(-2px); }
+.chip input[value="4"]:checked + span { background: #ef4444; color: #ffffff; border-color: #ef4444; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); transform: translateY(-2px); }
+.chip input[value="5"]:checked + span { background: #f87171; color: #ffffff; border-color: #f87171; box-shadow: 0 4px 10px rgba(248, 113, 113, 0.3); transform: translateY(-2px); }
+
+.chip input[value="6"]:checked + span { background: #a3e635; color: #0f172a; border-color: #a3e635; box-shadow: 0 4px 10px rgba(163, 230, 53, 0.3); transform: translateY(-2px); }
+.chip input[value="7"]:checked + span { background: #84cc16; color: #ffffff; border-color: #84cc16; box-shadow: 0 4px 10px rgba(132, 204, 22, 0.3); transform: translateY(-2px); }
+.chip input[value="8"]:checked + span { background: #22c55e; color: #ffffff; border-color: #22c55e; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3); transform: translateY(-2px); }
+.chip input[value="9"]:checked + span { background: #16a34a; color: #ffffff; border-color: #16a34a; box-shadow: 0 4px 10px rgba(22, 163, 74, 0.3); transform: translateY(-2px); }
+.chip input[value="10"]:checked + span { background: #15803d; color: #ffffff; border-color: #15803d; box-shadow: 0 4px 10px rgba(21, 128, 61, 0.3); transform: translateY(-2px); }
+
 .scale-legend { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin: -8px 0 18px; font-weight: 500; }
 
 /* صفوف الأشخاص */
@@ -306,6 +315,8 @@ select option { background: var(--surface); color: var(--text-main); }
   .person-row .remove-btn { grid-column: 2; justify-self: end; width: 100%; height: 42px; }
   .actions .btn { min-width: 100%; }
   .chip span { width: 38px; height: 38px; font-size: 14px; }
+  .member-actions { flex-direction: column; align-items: stretch; }
+  .member-actions select { width: 100%; }
 }
 </style>
 </head>
@@ -517,17 +528,28 @@ select option { background: var(--surface); color: var(--text-main); }
           </div>
         </div>
         <p class="question">كيف تقيم أداء أعضاء اللجنة بشكل عام؟</p>
+        
         <div class="person-head">
           <div>اسم العضو</div>
           <div>التقييم من ١٠</div>
           <div>الملاحظات (إن وجدت)</div>
           <div></div>
         </div>
+        
         <div id="membersList"></div>
-        <div id="membersEmpty" class="empty-hint">لم تُضف أي عضو بعد — اضغط «إضافة عضو» بالأسفل</div>
-        <div style="margin-top:18px">
+        <div id="membersEmpty" class="empty-hint">لم تُضف أي عضو بعد — حدد خياراً أو اضغط «إضافة عضو»</div>
+        
+        <!-- التقييم العام + إضافة عضو -->
+        <div class="member-actions" style="margin-top:18px; display:flex; gap:12px; align-items:center;">
+          <select name="members_general_eval" style="flex:1; padding:12px 14px; border-radius:12px; background:var(--input-bg); border:1px solid var(--border-color); color:var(--text-main); outline:none; font-family:inherit; font-size:14.5px;">
+            <option value="">— تقييم عام للجنة (اختياري) —</option>
+            <option value="اجادة اللجنه كل الشغل عدا المقيمين">⭐ اجادة اللجنه كل الشغل عدا المقيمين...</option>
+            <option value="لم تجّد اللجنه ككل الشغل عدا المقيمين">⚠️لم تجّد اللجنه ككل الشغل عدا المقيمين ...</option>
+            <option value="أداء متفاوت">📊 أداء متفاوت (تقييم فردي لكل عضو)</option>
+          </select>
           <button type="button" class="btn btn-ghost" id="addMemberBtn">＋ إضافة عضو</button>
         </div>
+
       </div>
 
       <!-- تقييم القادة -->
@@ -604,8 +626,16 @@ const state = { name: "", role: "", committee: "" };
 
 /* ======================= أدوات مساعدة ======================= */
 const $  = (s, p = document) => p.querySelector(s);
-const $$ = (s, p = document) => [...p.querySelectorAll(s)];  function showScreen(id) {   $$(".screen").forEach(s => s.classList.remove("active"));
-  $("#" + id).classList.add("active");   window.scrollTo({ top: 0, behavior: "smooth" }); }  /* ======================= بناء مقاييس 1-10 ======================= */ $$(".scale").forEach(box => {
+const $$ = (s, p = document) => [...p.querySelectorAll(s)];
+
+function showScreen(id) {
+  $$(".screen").forEach(s => s.classList.remove("active"));
+  $("#" + id).classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ======================= بناء مقاييس 1-10 ======================= */
+$$(".scale").forEach(box => {
   const name = box.dataset.name;
   for (let i = 1; i <= 10; i++) {
     const label = document.createElement("label");
@@ -639,8 +669,9 @@ function addPersonRow(listEl, emptyEl, namePlaceholder) {
   row.querySelector(".p-name").focus();
 }
 
+/* فصلنا الأعضاء عن القادة بشكل سليم تماماً هنا */
 $("#addMemberBtn").onclick = () =>
-  addPersonRow($("#membersList"), $("#membersEmpty"), "اسم العضو");
+  addPersonRow($("#membersList"), $("#membersEmpty"), "اسم العضو الاستثنائي");
 
 $("#addLeaderBtn").onclick = () =>
   addPersonRow($("#leadersList"), $("#leadersEmpty"), "اسم القائد / النائب");
@@ -679,7 +710,7 @@ $("#logoutBtn").onclick = () => {
   })).filter(p => p.name || p.score || p.note);
 }
 
-/* ======================= الإرسال ======================= */
+/* ======================= الإرسال الفعلي لقاعدة البيانات ======================= */
 $("#evalForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -708,6 +739,7 @@ $("#evalForm").addEventListener("submit", async (e) => {
     how_handled: val("how_handled"),
     solutions:   val("solutions"),
     suggestions: val("suggestions"),
+    members_general: val("members_general_eval"),
     members: collectPeople("membersList"),
     leaders: collectPeople("leadersList")
   };
