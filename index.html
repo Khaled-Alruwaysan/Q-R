@@ -1,337 +1,22 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="light">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>لجنة التطوير والجودة | نظام تقييم الأداء</title>
+<title>نادي علوم المختبرات الإكلينيكية | تقييم الأداء</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-<style>
-/* ============ المتغيرات (النمط الفاتح واللّيلي) ============ */
-:root {
-  --bg-color: #f8fafc;
-  --surface: #ffffff;
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --primary-light: #eff6ff;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --text-light: #94a3b8;
-  --border-color: #e2e8f0;
-  --input-bg: #f8fafc;
-  --notice-bg: #eff6ff;
-  --notice-border: #bfdbfe;
-  --notice-text: #1e3a8a;
-  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-}
-
-[data-theme="dark"] {
-  --bg-color: #0b1120;
-  --surface: #1e293b;
-  --primary: #3b82f6;
-  --primary-hover: #2563eb;
-  --primary-light: rgba(59, 130, 246, 0.15);
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --text-light: #64748b;
-  --border-color: #334155;
-  --input-bg: #0f172a;
-  --notice-bg: rgba(59, 130, 246, 0.1);
-  --notice-border: rgba(59, 130, 246, 0.25);
-  --notice-text: #bfdbfe;
-  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
-
-body {
-  font-family: 'Tajawal', system-ui, sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-main);
-  min-height: 100vh;
-  padding: 0 16px 80px;
-  line-height: 1.7;
-  transition: background-color 0.25s ease, color 0.25s ease;
-}
-
-/* ============ الشريط العلوي ============ */
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border-color);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  margin: 0 -16px;
-  box-shadow: var(--shadow-sm);
-  transition: background-color 0.25s ease, border-color 0.25s ease;
-}
-.topbar-inner {
-  max-width: 940px;
-  margin: 0 auto;
-  padding: 12px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-.topbar-brand { display: flex; align-items: center; gap: 14px; }
-.topbar-logo {
-  width: 42px; height: 42px; border-radius: 12px;
-  display: grid; place-items: center; font-size: 19px; color: var(--primary);
-  background: var(--primary-light);
-}
-.topbar-text h1 {
-  font-size: 15px; font-weight: 800; color: var(--text-main);
-  line-height: 1.2; margin: 0;
-}
-.topbar-text span { font-size: 12px; color: var(--text-muted); font-weight: 500; }
-.topbar-controls { display: flex; align-items: center; gap: 10px; }
-
-.theme-toggle {
-  width: 40px; height: 40px; border-radius: 10px;
-  background: var(--input-bg); border: 1px solid var(--border-color);
-  color: var(--text-main); font-size: 18px; cursor: pointer;
-  display: grid; place-items: center; transition: all .2s ease;
-}
-.theme-toggle:hover { border-color: var(--primary); transform: scale(1.05); }
-
-.topbar-tag {
-  font-size: 12px; font-weight: 700; color: var(--primary);
-  background: var(--primary-light); border: 1px solid var(--border-color);
-  padding: 6px 14px; border-radius: 999px; white-space: nowrap;
-}
-
-.wrap { max-width: 940px; margin: 0 auto; position: relative; }
-
-/* ============ شاشات العرض ============ */
-.screen { display: none; }
-.screen.active { display: block; animation: fadeUp .35s ease-out; }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-
-/* ============ شاشة الدخول ============ */
-.login-card {
-  max-width: 480px; margin: 8vh auto 0;
-  background: var(--surface);
-  border: 1px solid var(--border-color);
-  border-radius: 20px;
-  padding: 44px 32px;
-  box-shadow: var(--shadow-lg);
-  transition: background-color 0.25s ease, border-color 0.25s ease;
-}
-.crest {
-  width: 68px; height: 68px; margin: 0 auto 20px;
-  display: grid; place-items: center; border-radius: 18px;
-  background: var(--primary-light); font-size: 26px; color: var(--primary);
-}
-.login-title { text-align: center; font-size: 22px; font-weight: 800; color: var(--text-main); margin-bottom: 6px; }
-.login-sub { text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 30px; }
-
-/* ============ الحقول ============ */
-.field { margin-bottom: 22px; text-align: right; }
-.field > label { display: block; font-weight: 700; font-size: 14px; margin-bottom: 8px; color: var(--text-main); }
-.field .hint { font-weight: 400; color: var(--text-muted); font-size: 12px; }
-
-input[type="text"], input[type="number"], select, textarea {
-  width: 100%; padding: 13px 16px; border-radius: 12px;
-  background: var(--input-bg);
-  border: 1px solid var(--border-color);
-  color: var(--text-main); font-family: inherit; font-size: 15px; outline: none;
-  transition: all .2s ease;
-}
-textarea { min-height: 105px; resize: vertical; line-height: 1.8; }
-input::placeholder, textarea::placeholder { color: var(--text-light); }
-input:focus, select:focus, textarea:focus {
-  background: var(--surface);
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-}
-select option { background: var(--surface); color: var(--text-main); }
-
-/* اختيار الصفة */
-.role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.role-card {
-  position: relative; cursor: pointer;
-  border: 1px solid var(--border-color);
-  background: var(--input-bg);
-  border-radius: 12px; padding: 16px 12px; text-align: center;
-  font-weight: 700; font-size: 14px; color: var(--text-muted);
-  transition: all .2s ease;
-}
-.role-card input { position: absolute; opacity: 0; pointer-events: none; }
-.role-card .ic { display: block; font-size: 22px; margin-bottom: 8px; }
-.role-card:hover { border-color: var(--text-light); }
-.role-card:has(input:checked) {
-  background: var(--primary-light);
-  border-color: var(--primary);
-  color: var(--primary);
-}
-.role-card:has(input:checked) .ic { transform: scale(1.1); }
-
-/* ============ الأزرار ============ */
-.btn {
-  width: 100%; padding: 15px; border: none; border-radius: 12px; cursor: pointer;
-  font-family: inherit; font-size: 15px; font-weight: 700;
-  background: var(--primary); color: #ffffff;
-  box-shadow: var(--shadow-md);
-  transition: all .2s ease;
-}
-.btn:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-.btn:active { transform: translateY(0); }
-.btn-ghost {
-  background: var(--input-bg); color: var(--text-main);
-  border: 1px solid var(--border-color); box-shadow: none; width: auto; padding: 10px 20px; font-size: 13.5px;
-}
-.btn-ghost:hover { border-color: var(--text-light); transform: none; }
-.btn-sm { padding: 8px 16px; font-size: 13px; border-radius: 8px; }
-
-/* ============ الهيدر ============ */
-.hero { text-align: center; padding: 36px 12px 18px; position: relative; }
-.hero-badge {
-  width: 58px; height: 58px; margin: 0 auto 14px; display: grid; place-items: center;
-  border-radius: 50%; background: var(--primary-light); color: var(--primary); font-size: 24px;
-}
-.hero-title { font-size: clamp(22px, 4vw, 34px); font-weight: 800; line-height: 1.4; color: var(--text-main); }
-.hero-sub { margin-top: 8px; color: var(--text-muted); font-size: 14.5px; }
-
-/* شريط المستخدم */
-.userbar {
-  display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; align-items: center;
-  background: var(--surface); border: 1px solid var(--border-color); border-radius: 14px;
-  padding: 14px 18px; margin: 0 0 28px; box-shadow: var(--shadow-sm);
-}
-.userbar .pill {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--input-bg); border: 1px solid var(--border-color);
-  border-radius: 999px; padding: 6px 14px; font-size: 13.5px; color: var(--text-muted);
-}
-.userbar .pill b { color: var(--text-main); font-weight: 700; }
-
-/* ============ البطاقات ============ */
-.notice {
-  display: flex; gap: 14px; align-items: flex-start;
-  background: var(--notice-bg); border: 1px solid var(--notice-border);
-  border-radius: 14px; padding: 18px; margin-bottom: 26px;
-  font-size: 13.5px; color: var(--notice-text); line-height: 1.8;
-}
-.notice .ic { font-size: 20px; line-height: 1; }
-
-.card {
-  background: var(--surface); border: 1px solid var(--border-color); border-radius: 16px;
-  padding: 28px 24px; margin-bottom: 22px; box-shadow: var(--shadow-md);
-  transition: background-color 0.25s ease, border-color 0.25s ease;
-}
-.card-head { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
-.num {
-  flex: 0 0 auto; width: 42px; height: 42px; border-radius: 12px;
-  display: grid; place-items: center; font-weight: 800; font-size: 17px;
-  background: var(--primary-light); color: var(--primary);
-}
-.card-head h2 { font-size: 17.5px; font-weight: 800; color: var(--text-main); }
-.card-head .sub { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-top: 3px; }
-.question { font-size: 14.5px; color: var(--text-main); margin-bottom: 18px; line-height: 1.9; font-weight: 500; }
-
-/* مقياس 1-10 (تدرج الألوان) */
-.scale { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
-.chip input { display: none; }
-.chip span {
-  display: grid; place-items: center; width: 42px; height: 42px; border-radius: 10px;
-  background: var(--input-bg); border: 1px solid var(--border-color);
-  color: var(--text-muted); font-weight: 700; font-size: 14.5px; cursor: pointer; transition: all .2s;
-}
-.chip span:hover { border-color: var(--text-light); }
-
-/* تدرجات الأحمر إلى الأخضر */
-.chip input[value="1"]:checked + span { background: #991b1b; color: #ffffff; border-color: #991b1b; box-shadow: 0 4px 10px rgba(153, 27, 27, 0.3); transform: translateY(-2px); }
-.chip input[value="2"]:checked + span { background: #b91c1c; color: #ffffff; border-color: #b91c1c; box-shadow: 0 4px 10px rgba(185, 28, 28, 0.3); transform: translateY(-2px); }
-.chip input[value="3"]:checked + span { background: #dc2626; color: #ffffff; border-color: #dc2626; box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3); transform: translateY(-2px); }
-.chip input[value="4"]:checked + span { background: #ef4444; color: #ffffff; border-color: #ef4444; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); transform: translateY(-2px); }
-.chip input[value="5"]:checked + span { background: #f87171; color: #ffffff; border-color: #f87171; box-shadow: 0 4px 10px rgba(248, 113, 113, 0.3); transform: translateY(-2px); }
-
-.chip input[value="6"]:checked + span { background: #a3e635; color: #0f172a; border-color: #a3e635; box-shadow: 0 4px 10px rgba(163, 230, 53, 0.3); transform: translateY(-2px); }
-.chip input[value="7"]:checked + span { background: #84cc16; color: #ffffff; border-color: #84cc16; box-shadow: 0 4px 10px rgba(132, 204, 22, 0.3); transform: translateY(-2px); }
-.chip input[value="8"]:checked + span { background: #22c55e; color: #ffffff; border-color: #22c55e; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3); transform: translateY(-2px); }
-.chip input[value="9"]:checked + span { background: #16a34a; color: #ffffff; border-color: #16a34a; box-shadow: 0 4px 10px rgba(22, 163, 74, 0.3); transform: translateY(-2px); }
-.chip input[value="10"]:checked + span { background: #15803d; color: #ffffff; border-color: #15803d; box-shadow: 0 4px 10px rgba(21, 128, 61, 0.3); transform: translateY(-2px); }
-
-.scale-legend { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin: -8px 0 18px; font-weight: 500; }
-
-/* صفوف الأشخاص */
-.person-head, .person-row { display: grid; grid-template-columns: 2fr 1fr 2fr 44px; gap: 10px; align-items: center; }
-.person-head { font-size: 12.5px; font-weight: 700; color: var(--text-muted); padding: 0 6px 10px; border-bottom: 1px dashed var(--border-color); margin-bottom: 14px; }
-.person-row { margin-bottom: 10px; animation: fadeUp .3s ease; }
-.person-row select { padding: 12px 6px; text-align: center; }
-.remove-btn {
-  width: 44px; height: 44px; border-radius: 10px; cursor: pointer;
-  background: rgba(239, 68, 68, 0.1); border: 1px solid transparent;
-  color: #ef4444; font-size: 18px; transition: .2s; font-family: inherit; display: grid; place-items: center;
-}
-.remove-btn:hover { background: rgba(239, 68, 68, 0.2); }
-.empty-hint { color: var(--text-light); font-size: 13.5px; text-align: center; padding: 18px; border: 1px dashed var(--border-color); border-radius: 12px; }
-
-.actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 36px; }
-.actions .btn { width: auto; min-width: 240px; padding: 15px 36px; font-size: 15.5px; }
-
-/* النجاح */
-.success {
-  max-width: 500px; margin: 12vh auto 0; text-align: center;
-  background: var(--surface); border: 1px solid var(--border-color); border-radius: 20px; padding: 50px 32px;
-  box-shadow: var(--shadow-lg);
-}
-.success .check {
-  width: 76px; height: 76px; margin: 0 auto 20px; border-radius: 50%;
-  display: grid; place-items: center; font-size: 38px; color: #ffffff;
-  background: #10b981; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
-  animation: pop .5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-@keyframes pop { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-.success h2 { font-size: 22px; font-weight: 800; margin-bottom: 10px; color: var(--text-main); }
-.success p { color: var(--text-muted); font-size: 14.5px; margin-bottom: 28px; line-height: 1.8; }
-
-.loader {
-  display: none; width: 18px; height: 18px; border-radius: 50%;
-  border: 2.5px solid rgba(255,255,255,0.3); border-top-color: #ffffff;
-  animation: spin .8s linear infinite; vertical-align: -3px; margin-right: 8px;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.btn.loading .loader { display: inline-block; }
-
-@media(max-width: 768px) {
-  body { padding: 0 12px 40px; }
-  .topbar { margin: 0 -12px; }
-  .topbar-tag { display: none; }
-  .login-card { padding: 30px 18px; margin-top: 4vh; }
-  .card { padding: 20px 16px; border-radius: 14px; }
-  .person-head { display: none; }
-  .person-row { grid-template-columns: 1fr 1fr; gap: 8px; background: var(--input-bg); padding: 14px; border-radius: 12px; border: 1px solid var(--border-color); }
-  .person-row .p-name { grid-column: 1 / -1; }
-  .person-row .remove-btn { grid-column: 2; justify-self: end; width: 100%; height: 42px; }
-  .actions .btn { min-width: 100%; }
-  .chip span { width: 38px; height: 38px; font-size: 14px; }
-}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ================= الشريط العلوي ================= -->
 <header class="topbar">
   <div class="topbar-inner">
-    <div class="topbar-brand">
-      <div class="topbar-logo">📑</div>
-      <div class="topbar-text">
-        <h1>لجنة التطوير والجودة</h1>
-        <span>نظام تقييم الأداء</span>
-      </div>
+    <div class="topbar-brand" id="topbarBrand" style="display: none;">
+      <img src="logo.png" alt="شعار النادي" class="topbar-logo-img" onerror="this.style.display='none';">
     </div>
     <div class="topbar-controls">
-      <button class="theme-toggle" id="themeToggle" title="تبديل المظهر">🌙</button>
       <span class="topbar-tag">سري ومغلق</span>
     </div>
   </div>
@@ -342,9 +27,11 @@ select option { background: var(--surface); color: var(--text-main); }
   <!-- ================= شاشة الدخول ================= -->
   <section class="screen active" id="loginScreen">
     <div class="login-card">
-      <div class="crest">📊</div>
+      <div class="club-logo-container">
+        <img src="logo.png" alt="شعار النادي" class="club-logo-img" id="clubLogo" onerror="this.style.display='none';">
+      </div>
       <h1 class="login-title">بوابة التقييم</h1>
-      <p class="login-sub">لجنة التطوير والجودة</p>
+      <p class="login-sub">تقييم أداء فرق عمل النادي</p>
 
       <div class="field">
         <label for="userName">الاسم <span class="hint">(الاسم الثلاثي)</span></label>
@@ -352,23 +39,9 @@ select option { background: var(--surface); color: var(--text-main); }
       </div>
 
       <div class="field">
-        <label>الصفة</label>
-        <div class="role-grid">
-          <label class="role-card">
-            <input type="radio" name="role" value="عضو جودة">
-            <span class="ic">👤</span>عضو جودة
-          </label>
-          <label class="role-card">
-            <input type="radio" name="role" value="قائد لجنة">
-            <span class="ic">⭐</span>قائد لجنة
-          </label>
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="committee">اللجنة</label>
+        <label for="committee">الفريق</label>
         <select id="committee">
-          <option value="">— اختر اللجنة —</option>
+          <option value="">— اختر الفريق —</option>
           <option value="التقارير والاحصاء">التقارير والاحصاء</option>
           <option value="المحتوى">المحتوى</option>
           <option value="الموارد البشرية">الموارد البشرية</option>
@@ -385,16 +58,14 @@ select option { background: var(--surface); color: var(--text-main); }
 
   <!-- ================= شاشة التقييم ================= -->
   <section class="screen" id="formScreen">
-
     <header class="hero">
       <div class="hero-badge">📋</div>
       <h1 class="hero-title">نموذج تقييم الأداء</h1>
-      <p class="hero-sub">تقرير تقييم أداء اللجان وفرق العمل</p>
+      <p class="hero-sub">تقرير التقييم الدوري لفرق العمل في النادي</p>
     </header>
 
     <div class="userbar">
       <div class="pill">👤 <b id="barName">—</b></div>
-      <div class="pill">⭐ <b id="barRole">—</b></div>
       <div class="pill">🏛 <b id="barCommittee">—</b></div>
       <button class="btn btn-ghost btn-sm" id="logoutBtn">تغيير المستخدم</button>
     </div>
@@ -402,23 +73,22 @@ select option { background: var(--surface); color: var(--text-main); }
     <div class="notice">
       <span class="ic">🔒</span>
       <div>
-        يهدف هذا التقرير إلى تقييم أداء اللجنة بشكل شامل من خلال رصد آلية العمل، ومستوى الالتزام والإنجاز، وجودة المخرجات، والتواصل والتفاعل.
-        <br><b>جميع المعلومات تعامل بسرية تامة ولا تُشارك خارج إطار التطوير.</b>
+        يهدف هذا التقرير إلى تقييم أداء الفريق بشكل شامل من خلال رصد آلية العمل، ومستوى الالتزام والإنجاز، وجودة المخرجات، والتواصل والتفاعل.
+        <br><b style="color:var(--c-3);">جميع المعلومات تعامل بسرية تامة ولا تُشارك خارج إطار التقييم والتطوير المستمر للنادي.</b>
       </div>
     </div>
 
     <form id="evalForm" autocomplete="off">
-
       <!-- 1 -->
       <div class="card">
         <div class="card-head">
           <div class="num">1</div>
           <div>
             <h2>الالتزام</h2>
-            <div class="sub">مدى التزام الأعضاء بالمهام والمواعيد</div>
+            <div class="sub">مدى الالتزام بالمهام والمواعيد المتفق عليها</div>
           </div>
         </div>
-        <p class="question">كيف تقيم مستوى التزام أعضاء اللجنة بالمهام؟ وهل كان هناك تأخير أو تقصير؟ وضّح مع ذكر أمثلة إن وجدت.</p>
+        <p class="question">كيف تقيم مستوى التزام أعضاء الفريق بالمهام؟ وهل كان هناك تأخير أو تقصير؟ وضّح مع ذكر أمثلة إن وجدت.</p>
         <div class="scale" data-name="q1"></div>
         <div class="scale-legend"><span>1 = ضعيف جداً</span><span>10 = ممتاز</span></div>
         <div class="field">
@@ -436,7 +106,7 @@ select option { background: var(--surface); color: var(--text-main); }
             <div class="sub">نسبة تحقيق المهام والمخرجات</div>
           </div>
         </div>
-        <p class="question">إلى أي مدى تم إنجاز المهام والأعمال المطلوبة من اللجنة؟ وهل تم تحقيق المخرجات المطلوبة؟ وضّح مستوى الإنجاز وأبرز ما تم إنجازه.</p>
+        <p class="question">إلى أي مدى تم إنجاز المهام والأعمال المطلوبة من الفريق؟ وهل تم تحقيق المخرجات المطلوبة؟ وضّح مستوى الإنجاز وأبرز ما تم إنجازه.</p>
         <div class="scale" data-name="q2"></div>
         <div class="scale-legend"><span>1 = ضعيف جداً</span><span>10 = ممتاز</span></div>
         <div class="field">
@@ -454,7 +124,7 @@ select option { background: var(--surface); color: var(--text-main); }
             <div class="sub">الوضوح والدقة ومطابقة المطلوب</div>
           </div>
         </div>
-        <p class="question">كيف تقيم جودة الأعمال والمخرجات المقدمة من اللجنة؟ وهل كانت واضحة، دقيقة، ومطابقة للمطلوب؟ وما الجوانب التي يمكن تحسينها إن وجدت؟</p>
+        <p class="question">كيف تقيم جودة الأعمال والمخرجات المقدمة من الفريق؟ وهل كانت واضحة، دقيقة، ومطابقة للمطلوب؟ وما الجوانب التي يمكن تحسينها إن وجدت؟</p>
         <div class="scale" data-name="q3"></div>
         <div class="scale-legend"><span>1 = ضعيف جداً</span><span>10 = ممتاز</span></div>
         <div class="field">
@@ -472,7 +142,7 @@ select option { background: var(--surface); color: var(--text-main); }
             <div class="sub">سرعة التجاوب ووضوح التعليمات والمتابعة</div>
           </div>
         </div>
-        <p class="question">كيف تقيم مستوى التواصل والتفاعل داخل اللجنة؟ من حيث سرعة التجاوب مع الأعضاء، وضوح التعليمات، ومتابعة القادة للمهام.</p>
+        <p class="question">كيف تقيم مستوى التواصل والتفاعل داخل الفريق؟ من حيث سرعة التجاوب، وضوح التعليمات، ومتابعة القادة للمهام.</p>
         <div class="scale" data-name="q4"></div>
         <div class="scale-legend"><span>1 = ضعيف جداً</span><span>10 = ممتاز</span></div>
         <div class="field">
@@ -490,7 +160,7 @@ select option { background: var(--surface); color: var(--text-main); }
             <div class="sub">إن وجدت</div>
           </div>
         </div>
-        <p class="question">ما أبرز التحديات أو الصعوبات التي واجهتك أو واجهت اللجنة أثناء العمل؟ وكيف تم التعامل معها؟ وهل ترى أن طريقة التعامل معها كانت مناسبة؟</p>
+        <p class="question">ما أبرز التحديات أو الصعوبات التي واجهتك أو واجهت الفريق أثناء العمل؟ وكيف تم التعامل معها؟ وهل ترى أن طريقة التعامل معها كانت مناسبة؟</p>
         <div class="field">
           <label>التحديات</label>
           <textarea name="challenges" placeholder="اذكر التحديات..."></textarea>
@@ -500,8 +170,8 @@ select option { background: var(--surface); color: var(--text-main); }
           <textarea name="how_handled" placeholder="كيف تم التعامل معها..."></textarea>
         </div>
         <div class="field">
-          <label>الحلول</label>
-          <textarea name="solutions" placeholder="الحلول المقترحة..."></textarea>
+          <label>الحلول والمقترحات</label>
+          <textarea name="solutions" placeholder="الحلول المقترحة للتحسين..."></textarea>
         </div>
       </div>
 
@@ -514,7 +184,7 @@ select option { background: var(--surface); color: var(--text-main); }
             <div class="sub">في حال الحاجة إلى التحسين</div>
           </div>
         </div>
-        <p class="question">من وجهة نظرك، ما الحلول أو التغييرات التي يمكن تطبيقها لتحسين أداء اللجنة؟ اذكر أي أفكار أو مقترحات تراها مناسبة.</p>
+        <p class="question">من وجهة نظرك، ما الحلول أو التغييرات التي يمكن تطبيقها لتحسين أداء الفريق؟ اذكر أي أفكار أو مقترحات تراها مناسبة.</p>
         <div class="field">
           <label>المقترحات</label>
           <textarea name="suggestions" placeholder="اكتب مقترحاتك..."></textarea>
@@ -526,11 +196,11 @@ select option { background: var(--surface); color: var(--text-main); }
         <div class="card-head">
           <div class="num">👥</div>
           <div>
-            <h2>تقييم أعضاء اللجنة</h2>
+            <h2>تقييم أعضاء الفريق</h2>
             <div class="sub">الالتزام، التعاون، تحمل المسؤولية، المبادرة، التفاعل</div>
           </div>
         </div>
-        <p class="question">كيف تقيم أداء أعضاء اللجنة بشكل عام؟</p>
+        <p class="question">كيف تقيم أداء أعضاء الفريق بشكل عام؟</p>
         
         <div class="person-head">
           <div>اسم العضو</div>
@@ -542,7 +212,7 @@ select option { background: var(--surface); color: var(--text-main); }
         <div id="membersList"></div>
         <div id="membersEmpty" class="empty-hint">لم تُضف أي عضو بعد — اضغط «إضافة عضو» بالأسفل</div>
         
-        <div style="margin-top:18px;">
+        <div class="add-btn-container">
           <button type="button" class="btn btn-ghost" id="addMemberBtn">＋ إضافة عضو</button>
         </div>
       </div>
@@ -552,11 +222,11 @@ select option { background: var(--surface); color: var(--text-main); }
         <div class="card-head">
           <div class="num">⭐</div>
           <div>
-            <h2>تقييم قادة اللجنة</h2>
-            <div class="sub">التنظيم، توزيع المهام، المتابعة، التواصل، الدعم، حل المشكلات</div>
+            <h2>تقييم قادة الفريق</h2>
+            <div class="sub">التنظيم، توزيع المهام، المتابعة، الدعم، حل المشكلات</div>
           </div>
         </div>
-        <p class="question">كيف تقيم أداء قائد اللجنة ونائبه؟</p>
+        <p class="question">كيف تقيم أداء قائد الفريق ونائبه؟</p>
         <div class="person-head">
           <div>اسم القائد / النائب</div>
           <div>التقييم من ١٠</div>
@@ -565,17 +235,18 @@ select option { background: var(--surface); color: var(--text-main); }
         </div>
         <div id="leadersList"></div>
         <div id="leadersEmpty" class="empty-hint">لم تُضف أي قائد بعد — اضغط «إضافة قائد / نائب» بالأسفل</div>
-        <div style="margin-top:18px">
+        
+        <div class="add-btn-container">
           <button type="button" class="btn btn-ghost" id="addLeaderBtn">＋ إضافة قائد / نائب</button>
         </div>
       </div>
 
-      <!-- التقييم النهائي للجنة (مساحة نصية حرة) -->
+      <!-- التقييم النهائي -->
       <div class="card">
         <div class="card-head">
           <div class="num">🏁</div>
           <div>
-            <h2>التقييم النهائي للجنة</h2>
+            <h2>التقييم النهائي</h2>
             <div class="sub">خلاصة تقييمك الشامل للأداء</div>
           </div>
         </div>
@@ -591,8 +262,8 @@ select option { background: var(--surface); color: var(--text-main); }
         </div>
         
         <div class="field" style="margin-bottom: 0;">
-          <label>التقييم العام للجنة</label>
-          <textarea name="final_committee" placeholder="اكتب رأيك النهائي والشامل عن اللجنة..."></textarea>
+          <label>التقييم العام للفريق ككل</label>
+          <textarea name="final_committee" placeholder="اكتب رأيك النهائي والشامل عن أداء الفريق ككل..."></textarea>
         </div>
       </div>
 
@@ -601,7 +272,7 @@ select option { background: var(--surface); color: var(--text-main); }
           <span class="loader"></span> إرسال التقرير النهائي
         </button>
       </div>
-      <p id="errorMsg" style="display:none;text-align:center;color:#ef4444;font-weight:700;margin-top:18px; font-size: 14.5px;"></p>
+      <p id="errorMsg" style="display:none;text-align:center;color:#ef4444;font-weight:800;margin-top:20px; font-size: 15px;"></p>
     </form>
   </section>
 
@@ -610,210 +281,13 @@ select option { background: var(--surface); color: var(--text-main); }
     <div class="success">
       <div class="check">✓</div>
       <h2>تم استلام التقييم بنجاح</h2>
-      <p>شكراً لجهودك، تم حفظ إجاباتك في قاعدة البيانات وسيتم التعامل معها بسرية تامة لرفع جودة العمل.</p>
-      <button class="btn btn-ghost" id="newFormBtn">تعبئة نموذج جديد</button>
+      <p>شكراً لجهودك، تم حفظ إجاباتك في قاعدة البيانات وسيتم التعامل معها بسرية تامة لرفع جودة العمل في النادي.</p>
+      <button class="btn btn-ghost" id="newFormBtn">العودة للرئيسية</button>
     </div>
   </section>
 
 </div>
 
-<script>
-/* =======================================================================
-   ⚙️ الإعدادات — رابط Google Apps Script
-   ======================================================================= */
-const SCRIPT_URL = "ضع_رابط_Apps_Script_هنا";
-
-/* ============================ إدارة المظهر (Dark / Light) ============================ */
-const themeToggleBtn = document.getElementById("themeToggle");
-const currentTheme = localStorage.getItem("theme") || "light";
-
-document.documentElement.setAttribute("data-theme", currentTheme);
-updateThemeIcon(currentTheme);
-
-themeToggleBtn.addEventListener("click", () => {
-  const activeTheme = document.documentElement.getAttribute("data-theme");
-  const newTheme = activeTheme === "light" ? "dark" : "light";
-  document.documentElement.setAttribute("data-theme", newTheme);
-  localStorage.setItem("theme", newTheme);
-  updateThemeIcon(newTheme);
-});
-
-function updateThemeIcon(theme) {
-  themeToggleBtn.textContent = theme === "light" ? "🌙" : "☀️";
-}
-
-/* ============================ الحالة ============================ */
-const state = { name: "", role: "", committee: "" };
-
-/* ======================= أدوات مساعدة ======================= */
-const $  = (s, p = document) => p.querySelector(s);
-const $$ = (s, p = document) => [...p.querySelectorAll(s)];
-
-function showScreen(id) {
-  $$(".screen").forEach(s => s.classList.remove("active"));
-  $("#" + id).classList.add("active");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-/* ======================= بناء مقاييس 1-10 ======================= */
-$$(".scale").forEach(box => {
-  const name = box.dataset.name;
-  for (let i = 1; i <= 10; i++) {
-    const label = document.createElement("label");
-    label.className = "chip";
-    label.innerHTML = `<input type="radio" name="${name}" value="${i}"><span>${i}</span>`;
-    box.appendChild(label);
-  }
-});
-
-/* ======================= صفوف الأشخاص ======================= */
-function scoreOptions() {
-  let html = '<option value="">—</option>';
-  for (let i = 1; i <= 10; i++) html += `<option value="${i}">${i}</option>`;
-  return html;
-}
-
-function addPersonRow(listEl, emptyEl, namePlaceholder) {
-  emptyEl.style.display = "none";
-  const row = document.createElement("div");
-  row.className = "person-row";
-  row.innerHTML = `
-    <input type="text" class="p-name" placeholder="${namePlaceholder}">
-    <select class="p-score">${scoreOptions()}</select>
-    <input type="text" class="p-note" placeholder="ملاحظات (إن وجدت)">
-    <button type="button" class="remove-btn" title="حذف">✕</button>`;
-  row.querySelector(".remove-btn").onclick = () => {
-    row.remove();
-    if (!listEl.children.length) emptyEl.style.display = "block";
-  };
-  listEl.appendChild(row);
-  row.querySelector(".p-name").focus();
-}
-
-$("#addMemberBtn").onclick = () =>
-  addPersonRow($("#membersList"), $("#membersEmpty"), "اسم العضو");
-
-$("#addLeaderBtn").onclick = () =>
-  addPersonRow($("#leadersList"), $("#leadersEmpty"), "اسم القائد / النائب");
-
-/* ======================= شاشة الدخول ======================= */
-$("#enterBtn").onclick = () => {
-  const name = $("#userName").value.trim();
-  const role = $('input[name="role"]:checked')?.value || "";
-  const committee = $("#committee").value;
-
-  if (!name)                return alert("الرجاء إدخال الاسم الثلاثي للمتابعة");
-  if (!role)                return alert("الرجاء تحديد صفتك في اللجنة");
-  if (!committee)           return alert("الرجاء اختيار اللجنة الخاصة بك");
-
-  state.name = name;
-  state.role = role;
-  state.committee = committee;
-
-  $("#barName").textContent = name;
-  $("#barRole").textContent = role;
-  $("#barCommittee").textContent = committee;
-
-  showScreen("formScreen");
-};
-
-$("#logoutBtn").onclick = () => {
-  if (confirm("هل أنت متأكد من رغبتك في تسجيل الخروج وإلغاء النموذج الحالي؟")) {
-    $("#evalForm").reset();
-    $("#membersList").innerHTML = "";
-    $("#leadersList").innerHTML = "";
-    $("#membersEmpty").style.display = "block";
-    $("#leadersEmpty").style.display = "block";     showScreen("loginScreen");   } };  /* ======================= جمع البيانات ======================= */ function collectPeople(listId) {   return $$("#" + listId + " .person-row").map(row => ({
-    name:  row.querySelector(".p-name").value.trim(),
-    score: row.querySelector(".p-score").value,
-    note:  row.querySelector(".p-note").value.trim()
-  })).filter(p => p.name || p.score || p.note);
-}
-
-/* ======================= الإرسال الفعلي لقاعدة البيانات ======================= */
-$("#evalForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const errEl = $("#errorMsg");
-  errEl.style.display = "none";
-
-  const fd = new FormData(e.target);
-  const val = n => (fd.get(n) || "").toString().trim();
-
-  // التأكد من البنود الأساسية
-  if (!val("q1") || !val("q2") || !val("q3") || !val("q4")) {
-    errEl.textContent = "الرجاء إكمال التقييم الرقمي للبنود الأربعة الأولى (1 - 4) قبل الإرسال.";
-    errEl.style.display = "block";
-    errEl.scrollIntoView({ behavior: "smooth", block: "center" });
-    return;
-  }
-  
-  // التأكد من التقييم النهائي النصي
-  if (!val("final_members") || !val("final_leaders") || !val("final_committee")) {
-    errEl.textContent = "الرجاء تعبئة جميع خانات (التقييم النهائي للجنة) في أسفل النموذج.";
-    errEl.style.display = "block";
-    errEl.scrollIntoView({ behavior: "smooth", block: "center" });
-    return;
-  }
-
-  const payload = {
-    name:       state.name,
-    role:       state.role,
-    committee:  state.committee,
-    q1: val("q1"), q1_notes: val("q1_notes"),
-    q2: val("q2"), q2_notes: val("q2_notes"),
-    q3: val("q3"), q3_notes: val("q3_notes"),
-    q4: val("q4"), q4_notes: val("q4_notes"),
-    challenges:  val("challenges"),
-    how_handled: val("how_handled"),
-    solutions:   val("solutions"),
-    suggestions: val("suggestions"),
-    final_members: val("final_members"),
-    final_leaders: val("final_leaders"),
-    final_committee: val("final_committee"),
-    members: collectPeople("membersList"),
-    leaders: collectPeople("leadersList")
-  };
-
-  const btn = $("#submitBtn");
-  btn.classList.add("loading");
-  btn.disabled = true;
-
-  try {
-    if (SCRIPT_URL.includes("ضع_رابط")) {
-      throw new Error("لم يتم ربط الموقع بقاعدة البيانات بعد. الرجاء وضع رابط Apps Script في المتغير SCRIPT_URL.");
-    }
-
-    const res = await fetch(SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payload)
-    });
-
-    const out = await res.json().catch(() => ({ ok: true }));
-    if (out && out.ok === false) throw new Error(out.error || "حدث خطأ أثناء حفظ البيانات");
-
-    showScreen("successScreen");
-
-  } catch (err) {
-    errEl.textContent = "⚠️ " + err.message;
-    errEl.style.display = "block";
-    errEl.scrollIntoView({ behavior: "smooth", block: "center" });
-  } finally {
-    btn.classList.remove("loading");
-    btn.disabled = false;
-  }
-});
-
-/* ======================= نموذج جديد ======================= */
-$("#newFormBtn").onclick = () => {
-  $("#evalForm").reset();
-  $("#membersList").innerHTML = "";
-  $("#leadersList").innerHTML = "";
-  $("#membersEmpty").style.display = "block";
-  $("#leadersEmpty").style.display = "block";
-  showScreen("formScreen");
-};
-</script>
+<script src="script.js"></script>
 </body>
 </html>
