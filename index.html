@@ -315,8 +315,6 @@ select option { background: var(--surface); color: var(--text-main); }
   .person-row .remove-btn { grid-column: 2; justify-self: end; width: 100%; height: 42px; }
   .actions .btn { min-width: 100%; }
   .chip span { width: 38px; height: 38px; font-size: 14px; }
-  .member-actions { flex-direction: column; align-items: stretch; }
-  .member-actions select { width: 100%; }
 }
 </style>
 </head>
@@ -371,8 +369,13 @@ select option { background: var(--surface); color: var(--text-main); }
         <label for="committee">اللجنة</label>
         <select id="committee">
           <option value="">— اختر اللجنة —</option>
-          <option value="لجنة الجودة والتطوير">لجنة الجودة والتطوير</option>
-          <option value="لجنة أخرى">لجنة أخرى</option>
+          <option value="التقارير والاحصاء">التقارير والاحصاء</option>
+          <option value="المحتوى">المحتوى</option>
+          <option value="الموارد البشرية">الموارد البشرية</option>
+          <option value="الدعم اللوجستي">الدعم اللوجستي</option>
+          <option value="العلاقات العامة">العلاقات العامة</option>
+          <option value="الاعلام">الاعلام</option>
+          <option value="التصميم">التصميم</option>
         </select>
       </div>
 
@@ -386,7 +389,7 @@ select option { background: var(--surface); color: var(--text-main); }
     <header class="hero">
       <div class="hero-badge">📋</div>
       <h1 class="hero-title">نموذج تقييم الأداء</h1>
-      <p class="hero-sub">تقرير تقييم أداء لجنة التطوير والجودة</p>
+      <p class="hero-sub">تقرير تقييم أداء اللجان وفرق العمل</p>
     </header>
 
     <div class="userbar">
@@ -537,19 +540,11 @@ select option { background: var(--surface); color: var(--text-main); }
         </div>
         
         <div id="membersList"></div>
-        <div id="membersEmpty" class="empty-hint">لم تُضف أي عضو بعد — حدد خياراً أو اضغط «إضافة عضو»</div>
+        <div id="membersEmpty" class="empty-hint">لم تُضف أي عضو بعد — اضغط «إضافة عضو» بالأسفل</div>
         
-        <!-- التقييم العام + إضافة عضو -->
-        <div class="member-actions" style="margin-top:18px; display:flex; gap:12px; align-items:center;">
-         select name="members_general_eval" style="flex:1; padding:12px 14px; border-radius:12px; background:var(--input-bg); border:1px solid var(--border-color); color:var(--text-main); outline:none; font-family:inherit; font-size:14.5px;">
-            <option value="">— تقييم عام للجنة (اختياري) —</option>
-            <option value="أدّت اللجنة ككل مهامها بشكل جيد، باستثناء المقيمين.">⭐ أدّت اللجنة ككل مهامها بشكل جيد، باستثناء المقيمين....</option>
-            <option value=" لم تؤدِّ اللجنة ككل مهامها بالشكل المطلوب، باستثناء المقيمين.">⚠️ لم تؤدِّ اللجنة ككل مهامها بالشكل المطلوب، باستثناء المقيمين. ...</option>
-            <option value="أداء متفاوت">📊 أداء متفاوت (تقييم فردي لكل عضو)</option>
-          </select>
+        <div style="margin-top:18px;">
           <button type="button" class="btn btn-ghost" id="addMemberBtn">＋ إضافة عضو</button>
         </div>
-
       </div>
 
       <!-- تقييم القادة -->
@@ -572,6 +567,32 @@ select option { background: var(--surface); color: var(--text-main); }
         <div id="leadersEmpty" class="empty-hint">لم تُضف أي قائد بعد — اضغط «إضافة قائد / نائب» بالأسفل</div>
         <div style="margin-top:18px">
           <button type="button" class="btn btn-ghost" id="addLeaderBtn">＋ إضافة قائد / نائب</button>
+        </div>
+      </div>
+
+      <!-- التقييم النهائي للجنة (مساحة نصية حرة) -->
+      <div class="card">
+        <div class="card-head">
+          <div class="num">🏁</div>
+          <div>
+            <h2>التقييم النهائي للجنة</h2>
+            <div class="sub">خلاصة تقييمك الشامل للأداء</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <label>التقييم العام للأعضاء</label>
+          <textarea name="final_members" placeholder="اكتب رأيك العام في أداء الأعضاء..."></textarea>
+        </div>
+        
+        <div class="field">
+          <label>التقييم العام للقادة</label>
+          <textarea name="final_leaders" placeholder="اكتب رأيك العام في أداء القادة..."></textarea>
+        </div>
+        
+        <div class="field" style="margin-bottom: 0;">
+          <label>التقييم العام للجنة</label>
+          <textarea name="final_committee" placeholder="اكتب رأيك النهائي والشامل عن اللجنة..."></textarea>
         </div>
       </div>
 
@@ -669,9 +690,8 @@ function addPersonRow(listEl, emptyEl, namePlaceholder) {
   row.querySelector(".p-name").focus();
 }
 
-/* فصلنا الأعضاء عن القادة بشكل سليم تماماً هنا */
 $("#addMemberBtn").onclick = () =>
-  addPersonRow($("#membersList"), $("#membersEmpty"), "اسم العضو الاستثنائي");
+  addPersonRow($("#membersList"), $("#membersEmpty"), "اسم العضو");
 
 $("#addLeaderBtn").onclick = () =>
   addPersonRow($("#leadersList"), $("#leadersEmpty"), "اسم القائد / النائب");
@@ -720,8 +740,17 @@ $("#evalForm").addEventListener("submit", async (e) => {
   const fd = new FormData(e.target);
   const val = n => (fd.get(n) || "").toString().trim();
 
+  // التأكد من البنود الأساسية
   if (!val("q1") || !val("q2") || !val("q3") || !val("q4")) {
     errEl.textContent = "الرجاء إكمال التقييم الرقمي للبنود الأربعة الأولى (1 - 4) قبل الإرسال.";
+    errEl.style.display = "block";
+    errEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+  
+  // التأكد من التقييم النهائي النصي
+  if (!val("final_members") || !val("final_leaders") || !val("final_committee")) {
+    errEl.textContent = "الرجاء تعبئة جميع خانات (التقييم النهائي للجنة) في أسفل النموذج.";
     errEl.style.display = "block";
     errEl.scrollIntoView({ behavior: "smooth", block: "center" });
     return;
@@ -739,7 +768,9 @@ $("#evalForm").addEventListener("submit", async (e) => {
     how_handled: val("how_handled"),
     solutions:   val("solutions"),
     suggestions: val("suggestions"),
-    members_general: val("members_general_eval"),
+    final_members: val("final_members"),
+    final_leaders: val("final_leaders"),
+    final_committee: val("final_committee"),
     members: collectPeople("membersList"),
     leaders: collectPeople("leadersList")
   };
